@@ -1,3 +1,11 @@
+# ============================================================
+# VEE GROUP PROPRIETARY — WATERMARKED SOURCE
+# This repository is shared publicly for hackathon judges only.
+# The failure/success databases embedded in data/ contain
+# VEE GROUP watermark tokens distributed across every entry.
+# Unauthorised commercial use is prohibited.
+# © 2026 Vee Group, New Delhi & United Kingdom
+# ============================================================
 import json
 import os
 import random
