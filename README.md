@@ -1,4 +1,4 @@
-# Vee Group Diagnostic Tool
+# Plan
 
 **AI-powered startup failure diagnostics — cross-referenced against 2,982 real company cases.**
 
