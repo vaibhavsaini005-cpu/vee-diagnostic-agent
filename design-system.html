@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vee Group Diagnostic — Design System</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0D1117;color:#D4CCBB;font-family:Inter,system-ui,sans-serif;padding:40px 24px 80px;max-width:860px;margin:0 auto}
+.ds-hero{background:#070C1A;border-radius:12px;padding:32px;margin-bottom:32px;border:1px solid rgba(201,168,76,0.2);position:relative;overflow:hidden}
+.ds-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.04) 1px,transparent 1px);background-size:48px 48px;pointer-events:none}
+.ds-hero-eyebrow{font-size:10px;letter-spacing:0.2em;color:#C9A84C;font-weight:600;margin-bottom:10px;text-transform:uppercase}
+.ds-hero-title{font-size:28px;font-weight:400;color:#EAE4D4;font-family:Georgia,serif;margin-bottom:8px}
+.ds-hero-sub{font-size:13px;color:#6B7A99;line-height:1.6}
+.sec{margin-bottom:36px}
+.sec-title{font-size:11px;font-weight:600;letter-spacing:0.14em;color:#6B7A99;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.07)}
+.card{background:#0D1528;border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:20px 22px;margin-bottom:12px}
+
+/* SWATCHES */
+.swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px}
+.swatch{border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.08)}
+.swatch-block{height:56px}
+.swatch-info{padding:10px 12px;background:#0D1528}
+.swatch-name{font-size:12px;font-weight:500;color:#D4CCBB}
+.swatch-hex{font-size:11px;color:#6B7A99;font-family:monospace;margin-top:2px}
+.swatch-use{font-size:10px;color:#4A5568;margin-top:3px}
+
+/* TYPE */
+.type-sample{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.type-sample:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.type-meta{font-size:11px;color:#6B7A99;font-family:monospace;margin-bottom:8px}
+
+/* TONE */
+.tone-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.tone-box{border-radius:8px;padding:14px 16px;font-size:12px;line-height:1.7}
+.tone-bad{background:rgba(192,57,43,0.1);border:1px solid rgba(192,57,43,0.25);color:#F5C4B3}
+.tone-good{background:rgba(39,80,10,0.2);border:1px solid rgba(151,196,89,0.25);color:#C0DD97}
+.tone-tag{font-size:10px;font-weight:700;letter-spacing:0.12em;margin-bottom:6px;display:block}
+.tone-bad .tone-tag{color:#E57373}
+.tone-good .tone-tag{color:#97C459}
+
+/* SPACING */
+.sp-row{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.sp-block{background:#C9A84C;border-radius:3px;height:16px;flex-shrink:0}
+.sp-label{font-size:12px;color:#D4CCBB;font-family:monospace;min-width:40px}
+.sp-use{font-size:11px;color:#6B7A99}
+
+/* RADIUS */
+.radius-row{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap}
+.radius-demo{text-align:center}
+.radius-box{width:52px;height:52px;background:#111A2E;border:1px solid rgba(201,168,76,0.3);margin-bottom:8px}
+.radius-label{font-size:11px;color:#6B7A99}
+.radius-use{font-size:10px;color:#4A5568;margin-top:2px}
+
+/* COMPONENTS */
+.vg-btn-p{background:#C9A84C;color:#070C1A;border:none;border-radius:6px;padding:11px 22px;font-size:12px;font-weight:700;letter-spacing:0.1em;cursor:default;display:inline-block}
+.vg-btn-s{background:transparent;color:#C9A84C;border:1px solid rgba(201,168,76,0.4);border-radius:6px;padding:11px 22px;font-size:12px;font-weight:600;letter-spacing:0.08em;cursor:default;display:inline-block}
+.comp-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:8px}
+.vg-badge-danger{background:rgba(192,57,43,0.15);color:#F5C4B3;border:1px solid rgba(192,57,43,0.3);border-radius:4px;padding:4px 9px;font-size:10px;font-weight:700;letter-spacing:0.1em;display:inline-block}
+.vg-badge-warn{background:rgba(99,56,6,0.3);color:#FAC775;border:1px solid rgba(239,159,39,0.3);border-radius:4px;padding:4px 9px;font-size:10px;font-weight:700;letter-spacing:0.1em;display:inline-block}
+.vg-badge-ok{background:rgba(39,80,10,0.3);color:#C0DD97;border:1px solid rgba(151,196,89,0.3);border-radius:4px;padding:4px 9px;font-size:10px;font-weight:700;letter-spacing:0.1em;display:inline-block}
+.vg-input{background:#111A2E;border:1px solid rgba(201,168,76,0.18);color:#D4CCBB;border-radius:6px;padding:10px 14px;font-size:12px;width:100%;font-family:inherit}
+.risk-track{background:rgba(255,255,255,0.06);border-radius:99px;height:5px;margin-bottom:5px}
+.risk-bar{height:5px;border-radius:99px}
+.comp-label{font-size:11px;color:#6B7A99;margin:0 0 8px;letter-spacing:0.1em;text-transform:uppercase}
+.comp-note{font-size:11px;color:#4A5568;margin-top:6px}
+
+/* GRID DEMO */
+.grid-demo{background:#070C1A;border-radius:8px;height:90px;position:relative;overflow:hidden;margin-bottom:12px}
+.grid-demo::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.04) 1px,transparent 1px);background-size:48px 48px}
+.grid-demo-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:16px;color:#EAE4D4;letter-spacing:0.06em}
+code{font-family:monospace;font-size:11px;background:rgba(255,255,255,0.07);padding:2px 6px;border-radius:4px;color:#C9A84C}
+
+/* DO/DONT */
+.rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rule-item{background:#111A2E;border-radius:8px;padding:12px 14px}
+.rule-do{border-left:3px solid #97C459}
+.rule-dont{border-left:3px solid #E57373}
+.rule-head{font-size:12px;font-weight:500;color:#D4CCBB;margin-bottom:4px}
+.rule-do .rule-head{color:#C0DD97}
+.rule-dont .rule-head{color:#F5C4B3}
+.rule-body{font-size:11px;color:#6B7A99;line-height:1.5}
+
+@media(max-width:560px){
+  .tone-grid,.rules-grid{grid-template-columns:1fr}
+  .swatch-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}
+}
+</style>
+</head>
+<body>
+
+<div class="ds-hero">
+  <div class="ds-hero-eyebrow">Design System · V1.0 · 2026</div>
+  <div class="ds-hero-title">Vee Group Diagnostic Tool</div>
+  <div class="ds-hero-sub">Colour · Typography · Language &amp; Tone · Spacing · Components · Do &amp; Don't</div>
+</div>
+
+<!-- COLOUR -->
+<div class="sec">
+  <div class="sec-title">Colour palette</div>
+  <div class="swatch-grid">
+    <div class="swatch"><div class="swatch-block" style="background:#070C1A"></div><div class="swatch-info"><div class="swatch-name">Void</div><div class="swatch-hex">#070C1A</div><div class="swatch-use">Page background</div></div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#0D1528"></div><div class="swatch-info"><div class="swatch-name">Abyss</div><div class="swatch-hex">#0D1528</div><div class="swatch-use">Card background</div></div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#111A2E"></div><div class="swatch-info"><div class="swatch-name">Deep navy</div><div class="swatch-hex">#111A2E</div><div class="swatch-use">Input / secondary card</div></div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#C9A84C"></div><div class="swatch-info"><div class="swatch-name">Gold</div><div class="swatch-hex">#C9A84C</div><div class="swatch-use">Primary accent, CTA</div></div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#E8C96A"></div><div class="swatch-info"><div class="swatch-name">Gold bright</div><div class="swatch-hex">#E8C96A</div><div class="swatch-use">Scores, highlights</div></div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#EAE4D4"></div><div class="swatch-info"><div class="swatch-name">Ivory</div><div class="swatch-hex">#EAE4D4</div><div class="swatch-use">Hero headline text</div></div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#D4CCBB"></div><div class="swatch-info"><div class="swatch-name">Parchment</div><div class="swatch-hex">#D4CCBB</div><div class="swatch-use">Body text</div></div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#6B7A99"></div><div class="swatch-info"><div class="swatch-name">Steel</div><div class="swatch-hex">#6B7A99</div><div class="swatch-use">Muted text, labels</div></div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#C0392B"></div><div class="swatch-info"><div class="swatch-name">Danger red</div><div class="swatch-hex">#C0392B</div><div class="swatch-use">High risk alerts</div></div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#EF9F27"></div><div class="swatch-info"><div class="swatch-name">Amber</div><div class="swatch-hex">#EF9F27</div><div class="swatch-use">Moderate risk</div></div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#97C459"></div><div class="swatch-info"><div class="swatch-name">Sage</div><div class="swatch-hex">#97C459</div><div class="swatch-use">Low risk / stable</div></div></div>
+    <div class="swatch"><div class="swatch-block" style="background:rgba(201,168,76,0.18);border:1px solid rgba(201,168,76,0.3)"></div><div class="swatch-info"><div class="swatch-name">Gold border</div><div class="swatch-hex">rgba(201,168,76,0.18)</div><div class="swatch-use">Card borders</div></div></div>
+  </div>
+</div>
+
+<!-- TYPOGRAPHY -->
+<div class="sec">
+  <div class="sec-title">Typography</div>
+  <div class="card">
+    <div class="type-sample">
+      <div class="type-meta">Cormorant Garamond / Georgia · Serif · 32–40px · weight 400 · Headlines</div>
+      <div style="font-family:Georgia,serif;font-size:30px;font-weight:400;color:#EAE4D4;letter-spacing:0.02em;line-height:1.2">Is your company repeating<br>a known failure?</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-meta">Inter · Sans · 11–12px · weight 700 · ALL-CAPS section labels</div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.2em;color:#C9A84C;text-transform:uppercase">DIAGNOSTIC STAGE · GHOST MATCH · RISK SCORES</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-meta">Inter · Sans · 14–18px · weight 500 · Section headings</div>
+      <div style="font-size:16px;font-weight:500;color:#D4CCBB">Pattern matches &amp; success benchmarks</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-meta">Inter · Sans · 13–15px · weight 400 · Body text · line-height 1.7–1.8</div>
+      <div style="font-size:13px;font-weight:400;color:#D4CCBB;line-height:1.75;opacity:0.85">Your founding team is strong on execution but weak on demand generation — a pattern seen in 38% of Series A failures in the SaaS category. The root cause is not the product; it is the go-to-market motion.</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-meta">JetBrains Mono / monospace · Scores, data, hex values · weight 400</div>
+      <div style="font-family:monospace;font-size:32px;font-weight:400;color:#E8C96A;letter-spacing:0.04em">72 &nbsp;<span style="font-size:14px;color:#6B7A99">/ 100</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div><div style="font-size:11px;color:#6B7A99;margin-bottom:6px">Font sizes</div><div style="font-size:12px;color:#D4CCBB;line-height:1.8">Hero: 32–40px<br>Section h2: 18px<br>Label: 10–11px<br>Body: 13–15px<br>Score: 24–36px</div></div>
+      <div><div style="font-size:11px;color:#6B7A99;margin-bottom:6px">Weights</div><div style="font-size:12px;color:#D4CCBB;line-height:1.8">300 — light subtext<br>400 — body + serif<br>500 — section heads<br>600 — nav items<br>700 — CTA, labels</div></div>
+      <div><div style="font-size:11px;color:#6B7A99;margin-bottom:6px">Letter spacing</div><div style="font-size:12px;color:#D4CCBB;line-height:1.8">All-caps labels: 0.14–0.2em<br>Headings: 0.02–0.04em<br>Body text: normal<br>Logo: 0.14em</div></div>
+      <div><div style="font-size:11px;color:#6B7A99;margin-bottom:6px">Line height</div><div style="font-size:12px;color:#D4CCBB;line-height:1.8">Headlines: 1.2–1.3<br>Body: 1.7–1.8<br>Labels: 1.0<br>List items: 1.8</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- LANGUAGE -->
+<div class="sec">
+  <div class="sec-title">Language &amp; tone</div>
+  <div class="card" style="margin-bottom:12px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px">
+      <div style="background:#111A2E;border-radius:8px;padding:12px 14px"><div style="font-size:12px;font-weight:500;color:#C9A84C;margin-bottom:4px">Clinical</div><div style="font-size:11px;color:#6B7A99;line-height:1.5">Direct, precise. No waffle or softening language.</div></div>
+      <div style="background:#111A2E;border-radius:8px;padding:12px 14px"><div style="font-size:12px;font-weight:500;color:#C9A84C;margin-bottom:4px">Authoritative</div><div style="font-size:11px;color:#6B7A99;line-height:1.5">State facts, not possibilities. Use "is" not "might be".</div></div>
+      <div style="background:#111A2E;border-radius:8px;padding:12px 14px"><div style="font-size:12px;font-weight:500;color:#C9A84C;margin-bottom:4px">Dramatic names</div><div style="font-size:11px;color:#6B7A99;line-height:1.5">Stages use ALL CAPS theatrical names: THE CHURN SPIRAL, THE CASH CLIFF.</div></div>
+      <div style="background:#111A2E;border-radius:8px;padding:12px 14px"><div style="font-size:12px;font-weight:500;color:#C9A84C;margin-bottom:4px">No jargon fluff</div><div style="font-size:11px;color:#6B7A99;line-height:1.5">No "leverage synergies". Specific, grounded in data.</div></div>
+      <div style="background:#111A2E;border-radius:8px;padding:12px 14px"><div style="font-size:12px;font-weight:500;color:#C9A84C;margin-bottom:4px">Proprietary framing</div><div style="font-size:11px;color:#6B7A99;line-height:1.5">"Vee Group Diagnostic AI" — never just "AI" or "chatbot".</div></div>
+      <div style="background:#111A2E;border-radius:8px;padding:12px 14px"><div style="font-size:12px;font-weight:500;color:#C9A84C;margin-bottom:4px">Second person</div><div style="font-size:11px;color:#6B7A99;line-height:1.5">"Your company is…" — always address the founder directly.</div></div>
+    </div>
+  </div>
+  <div class="tone-grid">
+    <div class="tone-box tone-bad"><span class="tone-tag">✗ NEVER WRITE</span>"It seems like there might be some potential challenges with your growth strategy that could possibly be worth looking into."</div>
+    <div class="tone-box tone-good"><span class="tone-tag">✓ WRITE THIS</span>"Your growth strategy has a single fatal flaw: you are acquiring customers faster than your product can retain them. This kills you at scale."</div>
+  </div>
+  <div class="tone-grid">
+    <div class="tone-box tone-bad"><span class="tone-tag">✗ NEVER WRITE</span>"Our AI tool can help you understand your business better and provide some insights about areas for improvement."</div>
+    <div class="tone-box tone-good"><span class="tone-tag">✓ WRITE THIS</span>"Cross-referenced against 1,982 failed companies. Your Ghost Match: Jawbone (2014). You are 14 months from the same cliff."</div>
+  </div>
+  <div class="tone-grid">
+    <div class="tone-box tone-bad"><span class="tone-tag">✗ NEVER WRITE</span>"We hope this report is helpful! Please feel free to reach out if you have any questions or feedback."</div>
+    <div class="tone-box tone-good"><span class="tone-tag">✓ WRITE THIS</span>"Survival probability with Vee Group intervention: 84%. Without it: 22%. The gap is the plan. Book your session."</div>
+  </div>
+</div>
+
+<!-- SPACING -->
+<div class="sec">
+  <div class="sec-title">Spacing scale</div>
+  <div class="card">
+    <div class="sp-row"><div class="sp-block" style="width:4px"></div><span class="sp-label">4px</span><span class="sp-use">Icon gap, tight inline spacing</span></div>
+    <div class="sp-row"><div class="sp-block" style="width:8px"></div><span class="sp-label">8px</span><span class="sp-use">Between label and value, badge padding</span></div>
+    <div class="sp-row"><div class="sp-block" style="width:12px"></div><span class="sp-label">12px</span><span class="sp-use">Between list items, tight grid gap</span></div>
+    <div class="sp-row"><div class="sp-block" style="width:16px"></div><span class="sp-label">16px</span><span class="sp-use">Card internal padding, section gap</span></div>
+    <div class="sp-row"><div class="sp-block" style="width:20px"></div><span class="sp-label">20px</span><span class="sp-use">Form section padding</span></div>
+    <div class="sp-row"><div class="sp-block" style="width:24px"></div><span class="sp-label">24px</span><span class="sp-use">Nav padding, major section spacing</span></div>
+    <div class="sp-row"><div class="sp-block" style="width:40px"></div><span class="sp-label">40px</span><span class="sp-use">Hero padding (desktop)</span></div>
+    <div class="sp-row"><div class="sp-block" style="width:56px"></div><span class="sp-label">56–80px</span><span class="sp-use">Hero top/bottom, page section breaks</span></div>
+  </div>
+</div>
+
+<!-- BORDER RADIUS -->
+<div class="sec">
+  <div class="sec-title">Border radius</div>
+  <div class="card">
+    <div class="radius-row">
+      <div class="radius-demo"><div class="radius-box" style="border-radius:4px"></div><div class="radius-label">4px</div><div class="radius-use">Badges, pills</div></div>
+      <div class="radius-demo"><div class="radius-box" style="border-radius:6px"></div><div class="radius-label">6px</div><div class="radius-use">Inputs, buttons</div></div>
+      <div class="radius-demo"><div class="radius-box" style="border-radius:8px"></div><div class="radius-label">8px</div><div class="radius-use">Cards, panels</div></div>
+      <div class="radius-demo"><div class="radius-box" style="border-radius:10px"></div><div class="radius-label">10px</div><div class="radius-use">Hero sections</div></div>
+      <div class="radius-demo"><div class="radius-box" style="border-radius:12px"></div><div class="radius-label">12px</div><div class="radius-use">Page wrapper</div></div>
+      <div class="radius-demo"><div class="radius-box" style="border-radius:99px"></div><div class="radius-label">99px</div><div class="radius-use">Risk bars</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- COMPONENTS -->
+<div class="sec">
+  <div class="sec-title">Components</div>
+  <div class="card">
+    <div class="comp-label">Buttons</div>
+    <div class="comp-row">
+      <span class="vg-btn-p">RUN DIAGNOSTIC</span>
+      <span class="vg-btn-s">VIEW REPORT</span>
+    </div>
+    <div class="comp-note">Primary: #C9A84C fill · #070C1A text · 700 weight · 0.1em spacing. &nbsp;Secondary: transparent · gold border · 600 weight.</div>
+  </div>
+  <div class="card">
+    <div class="comp-label">Status badges</div>
+    <div class="comp-row">
+      <span class="vg-badge-danger">HIGH RISK</span>
+      <span class="vg-badge-warn">MODERATE</span>
+      <span class="vg-badge-ok">STABLE</span>
+    </div>
+    <div class="comp-note">Background: danger/amber/sage at 15–30% opacity · matching border at 30% · matching text at 100%</div>
+  </div>
+  <div class="card">
+    <div class="comp-label">Form input</div>
+    <input class="vg-input" type="text" value="SaaS / B2B · Series A · $40K MRR" readonly style="margin-bottom:6px">
+    <div class="comp-note">Background #111A2E · Border rgba(201,168,76, 0.18) · Text #D4CCBB · Radius 6px · Padding 10px 14px</div>
+  </div>
+  <div class="card">
+    <div class="comp-label">Risk bar</div>
+    <div style="margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:10px;color:#6B7A99;letter-spacing:0.1em">GROWTH RISK</span><span style="font-size:11px;color:#D4CCBB;font-weight:500">72%</span></div>
+      <div class="risk-track"><div class="risk-bar" style="width:72%;background:#C0392B"></div></div>
+    </div>
+    <div style="margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:10px;color:#6B7A99;letter-spacing:0.1em">BRAND RISK</span><span style="font-size:11px;color:#D4CCBB;font-weight:500">48%</span></div>
+      <div class="risk-track"><div class="risk-bar" style="width:48%;background:#EF9F27"></div></div>
+    </div>
+    <div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:10px;color:#6B7A99;letter-spacing:0.1em">CAMPAIGN RISK</span><span style="font-size:11px;color:#D4CCBB;font-weight:500">32%</span></div>
+      <div class="risk-track"><div class="risk-bar" style="width:32%;background:#97C459"></div></div>
+    </div>
+    <div class="comp-note" style="margin-top:10px">Track: rgba(255,255,255, 0.06) · Fill: red (&gt;65%) / amber (35–65%) / sage (&lt;35%) · Height 5px · Radius 99px</div>
+  </div>
+</div>
+
+<!-- BACKGROUND GRID -->
+<div class="sec">
+  <div class="sec-title">Signature background grid</div>
+  <div class="grid-demo"><div class="grid-demo-text">VEE GROUP</div></div>
+  <div class="card">
+    <div style="font-size:12px;color:#D4CCBB;line-height:1.8">Applied as a <code>position: fixed</code> pseudo-element over the page background. Creates a subtle cartographic intelligence aesthetic without distracting from content.</div>
+    <div style="margin-top:12px;background:#070C1A;border-radius:6px;padding:14px;font-family:monospace;font-size:11px;color:#C9A84C;line-height:1.8">body::before {<br>&nbsp;&nbsp;content: '';<br>&nbsp;&nbsp;position: fixed;<br>&nbsp;&nbsp;inset: 0;<br>&nbsp;&nbsp;background-image:<br>&nbsp;&nbsp;&nbsp;&nbsp;linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),<br>&nbsp;&nbsp;&nbsp;&nbsp;linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);<br>&nbsp;&nbsp;background-size: 48px 48px;<br>&nbsp;&nbsp;pointer-events: none;<br>&nbsp;&nbsp;z-index: 0;<br>}</div>
+  </div>
+</div>
+
+<!-- DO / DON'T -->
+<div class="sec">
+  <div class="sec-title">Design rules — do &amp; don't</div>
+  <div class="rules-grid">
+    <div class="rule-item rule-do"><div class="rule-head">✓ Use gold sparingly</div><div class="rule-body">Gold signals importance. If everything is gold, nothing is. Reserve it for labels, CTAs, and scores.</div></div>
+    <div class="rule-item rule-dont"><div class="rule-head">✗ No gradients or glows</div><div class="rule-body">The tool is clinical, not gaming. Flat surfaces only. No neon, no mesh, no blur.</div></div>
+    <div class="rule-item rule-do"><div class="rule-head">✓ Serif for drama, sans for data</div><div class="rule-body">Headlines and stage names use Georgia/Cormorant. Numbers, labels, and body text use Inter/Mono.</div></div>
+    <div class="rule-item rule-dont"><div class="rule-head">✗ No light backgrounds</div><div class="rule-body">The UI lives in the dark. Never use white or light surfaces inside the application.</div></div>
+    <div class="rule-item rule-do"><div class="rule-head">✓ Red only for real risk</div><div class="rule-body">Danger red (#C0392B) is reserved for high failure risk signals. Never decorative.</div></div>
+    <div class="rule-item rule-dont"><div class="rule-head">✗ No soft language</div><div class="rule-body">"Might", "possibly", "could" are banned from diagnostic copy. The AI speaks with certainty.</div></div>
+    <div class="rule-item rule-do"><div class="rule-head">✓ All-caps for labels only</div><div class="rule-body">Section labels (GHOST MATCH, RISK SCORES) use all-caps + letter-spacing. Never all-caps body text.</div></div>
+    <div class="rule-item rule-dont"><div class="rule-head">✗ No humanising UI patterns</div><div class="rule-body">No rounded avatar circles, no chat bubbles, no friendly illustrations. This is a diagnostic engine.</div></div>
+    <div class="rule-item rule-do"><div class="rule-head">✓ 48px grid overlay always on</div><div class="rule-body">The background grid is a brand signature across every screen. Never remove it.</div></div>
+    <div class="rule-item rule-dont"><div class="rule-head">✗ No colour cycling</div><div class="rule-body">Don't use all colours in one view. Max 3 accent colours per screen. Risk colours only appear on risk elements.</div></div>
+  </div>
+</div>
+
+<div style="text-align:center;padding-top:24px;font-size:11px;color:#4A5568;letter-spacing:0.08em">© 2026 Vee Group · New Delhi &amp; United Kingdom · veegroup.in</div>
+
+</body>
+</html>
