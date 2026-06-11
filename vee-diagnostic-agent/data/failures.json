@@ -1,0 +1,58 @@
+[
+  {
+    "company": "1stDibs",
+    "industry": "E-commerce / Luxury Marketplace",
+    "founded": 2001,
+    "died": 2024,
+    "capital_raised": "Public (NASDAQ: DIBS)",
+    "survival_with_vee": 40,
+    "fatal_patterns": [
+      "post-pandemic-reversal",
+      "low-frequency-purchase",
+      "trade-program-underdeveloped",
+      "luxury-marketplace-cyclicality",
+      "consumer-vs-trade-mix"
+    ],
+    "bottlenecks": {
+      "growth": "90%+ GMV from consumer buyers with 5-10 year repeat cycle. Trade program with 150k+ designers completely underdeveloped.",
+      "brand": "Luxury marketplace brand vs design destination brand. Failed to serve interior designers who buy quarterly.",
+      "campaign": "Consumer advertising for low-frequency category. $300 CAC with once-per-decade LTV."
+    },
+    "warning_signals": [
+      "GMV growth near zero after pandemic boom reversed",
+      "Luxury furniture purchased once per decade - negative CAC:LTV",
+      "Trade Program 150k+ buyers at 10x frequency ignored",
+      "Stock -82% from peak"
+    ],
+    "early_warning_months": 18,
+    "prescription": "Build trade program as core business. Target interior designers as primary buyers. Reposition brand as design authority not furniture marketplace."
+  },
+  {
+    "company": "23andMe",
+    "industry": "Consumer Genetics / Healthtech",
+    "founded": 2006,
+    "died": 2025,
+    "capital_raised": 1100,
+    "survival_with_vee": 35,
+    "fatal_patterns": [
+      "one-time-purchase-trap",
+      "genetic-data-breach",
+      "drug-discovery-failed-pivot",
+      "subscription-never-built",
+      "privacy-trust-destruction"
+    ],
+    "bottlenecks": {
+      "growth": "15M customers with zero repeat purchase mechanic. Built massive customer base with no monetization path beyond initial sale.",
+      "brand": "Data breach of genetic data destroyed trust. Genetic privacy breach is unrecoverable.",
+      "ux": "Therapeutics pivot required building drug discovery from scratch — wrong skillset, 10-15 year timelines."
+    },
+    "warning_signals": [
+      "15M customers with zero repeat revenue mechanic",
+      "Revenue flat then declining despite growing customer base",
+      "GSK $300M partnership produced zero approved drugs after 7 years",
+      "Data breach exposed 7M users genetic data"
+    ],
+    "early_warning_months": 36,
+    "prescription": "Build subscription model converting 5% of 15M customers to $99/year recurring revenue. Position data privacy as core brand differentiator."
+  }
+]
